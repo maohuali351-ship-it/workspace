@@ -14,6 +14,18 @@
 
   <script>
 (async function () {
+  if (!Map.prototype.getOrInsertComputed) {
+    Object.defineProperty(Map.prototype, "getOrInsertComputed", {
+      configurable: true,
+      writable: true,
+      value: function (key, callback) {
+        if (this.has(key)) return this.get(key);
+        const value = callback(key);
+        this.set(key, value);
+        return value;
+      }
+    });
+  }
   const parts = ["runtime/bundle-01.txt", "runtime/bundle-02.txt", "runtime/bundle-03.txt", "runtime/bundle-04.txt"];
   const responses = await Promise.all(parts.map((path) => fetch(path)));
   for (const response of responses) {
