@@ -4,4 +4,4 @@
 
 网页入口位于 `dist/index.html`，线上内容通过 `gh-pages` 分支发布。
 
-在线地址：https://maohuali351-ship-it.github.io/wall-panel-design-workbench/
+在线地址：https://maohuali351-ship-it.github.io/workspace/
