@@ -14,6 +14,19 @@
 
   <script>
 (function () {
+  const loadStartedAt = Date.now();
+  const loadRoot = document.getElementById("root");
+  if (loadRoot) {
+    const readyObserver = new MutationObserver(function () {
+      if (!document.getElementById("app-loading")) {
+        const readyMs = Date.now() - loadStartedAt;
+        window.__platformReadyMs = readyMs;
+        document.documentElement.dataset.platformReadyMs = String(readyMs);
+        readyObserver.disconnect();
+      }
+    });
+    readyObserver.observe(loadRoot, { childList: true, subtree: true });
+  }
   if (!Map.prototype.getOrInsertComputed) {
     Object.defineProperty(Map.prototype, "getOrInsertComputed", {
       configurable: true,
